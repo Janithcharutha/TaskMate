@@ -290,7 +290,7 @@ class _menuoageState extends State<menuoage> {
                 ],
               ),
             ),
-            Container(margin: EdgeInsets.only(bottom: 17),
+            Container(margin: EdgeInsets.only(bottom: 10),
               child: Center(
                 child: Text(
                   'You can choose a plan at any time through TaskMate',

@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:intl/date_symbol_data_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todoflutter/Shoping/shop.dart';
 import 'package:todoflutter/calendar/screens/calendar.dart';
 import 'package:todoflutter/calendar/screens/splash.dart';
 import 'package:todoflutter/loginpage/login_page.dart';
@@ -30,6 +31,8 @@ void main() async {
   var box6 = await Hive.openBox('mybox6');
   var box7 = await Hive.openBox('mybox7');
   var box8 = await Hive.openBox('mybox8');
+  var box11 = await Hive.openBox('mybox11');
+
 
   initializeDateFormatting()
       .then((_) => {runApp(MyApp(showHome:showHome)), loadAsync()});
@@ -51,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/menu': (context) => menuoage(),
         '/calandar': (context) =>  Calendar(),
         '/login': (context) =>  LoginPage(),
+        '/Shoping': (context) =>  Shop(),
       },
 
     );

@@ -169,3 +169,30 @@ class ToDoDataBase8 {
     _myBox8.put("TODOLIST8", toDoList8);
   }
 }
+
+/////////////////////////////////////////////////////////////
+
+class ToDoDataBase11 {
+  List toDoList11 = [];
+
+  // reference our box
+  final _myBox11 = Hive.box('mybox11');
+
+  // run this method if this is the 1st time ever opening this app
+  void createInitialData11() {
+    toDoList11 = [
+
+
+    ];
+  }
+
+  // load the data from database
+  void loadData11() {
+    toDoList11 = _myBox11.get("TODOLIST11");
+  }
+
+  // update the database
+  void updateDataBase11() {
+    _myBox11.put("TODOLIST11", toDoList11);
+  }
+}

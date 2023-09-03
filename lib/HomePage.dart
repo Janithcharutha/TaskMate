@@ -21,6 +21,9 @@ class _HomePageState extends State<HomePage> {
   final _myBox6 = Hive.box('mybox6');
   final _myBox7 = Hive.box('mybox7');
   final _myBox8 = Hive.box('mybox8');
+  // final _myBox9 = Hive.box('mybox9');
+
+//shopping
 
   ToDoDataBase db = ToDoDataBase();
   ToDoDataBase2 db2 = ToDoDataBase2();
@@ -30,6 +33,9 @@ class _HomePageState extends State<HomePage> {
   ToDoDataBase6 db6 = ToDoDataBase6();
   ToDoDataBase7 db7 = ToDoDataBase7();
   ToDoDataBase8 db8 = ToDoDataBase8();
+  // ToDoDataBase9 db9 = ToDoDataBase9();
+
+
 
   @override
   void initState() {
@@ -78,6 +84,13 @@ class _HomePageState extends State<HomePage> {
       // there already exists data
       db8.loadData8();
     }
+
+    // if (_myBox9.get("TODOLIST9") == null) {
+    //   db9.createInitialData9();
+    // } else {
+    //   // there already exists data
+    //   db9.loadData9();
+    // }
     ////////////////////////////////////////////////////////////////////////
     super.initState();
   }
@@ -142,6 +155,13 @@ class _HomePageState extends State<HomePage> {
     });
     db8.updateDataBase8();
   }
+
+  // void checkBoxChanged9(bool? value, int index) {
+  //   setState(() {
+  //     db9.toDoList9[index][1] = !db9.toDoList9[index][1];
+  //   });
+  //   db9.updateDataBase9();
+  // }
 
   // save new task
   void saveNewTask() {
@@ -216,6 +236,17 @@ class _HomePageState extends State<HomePage> {
     Navigator.of(context).pop();
     db8.updateDataBase8();
   }
+
+  //
+  // void saveNewTask9() {
+  //   setState(() {
+  //     db9.toDoList9.add([_controller.text, false]);
+  //     _controller.clear();
+  //   });
+  //   Navigator.of(context).pop();
+  //   db9.updateDataBase9();
+  // }
+
 
   // create a new task
   void createNewTask() {
@@ -323,6 +354,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //
+  // void createNewTask9() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return DialogBox(
+  //         controller: _controller,
+  //         onSave: saveNewTask9,
+  //         onCancel: () => Navigator.of(context).pop(),
+  //       );
+  //     },
+  //   );
+  // }
+
   // delete task
   void deleteTask(int index) {
     setState(() {
@@ -380,6 +425,17 @@ class _HomePageState extends State<HomePage> {
     });
     db8.updateDataBase8();
   }
+  //
+  // void deleteTask9(int index) {
+  //   setState(() {
+  //     db9.toDoList9.removeAt(index);
+  //   });
+  //   db9.updateDataBase9();
+  // }
+
+  /////////////////////////////////////////////
+
+  ////////////////////////////////////////////
 
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -420,7 +476,11 @@ class _HomePageState extends State<HomePage> {
           ],
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(35),
-            child: TabBar(labelStyle: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),
+            child: TabBar(
+              labelStyle: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
               unselectedLabelStyle: TextStyle(fontSize: 15),
               unselectedLabelColor: Colors.yellowAccent,
               indicatorColor: Colors.black,
@@ -434,28 +494,63 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed('/calandar');
-          },
-          child: Icon(
-            Icons.calendar_month_outlined,
-            size: 50,
+        floatingActionButton: Padding(
+          padding:  EdgeInsets.only(left: 30),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/Shoping');
+                },
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 50,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                backgroundColor: Colors.blue,
+                // Set the background color
+                foregroundColor: Colors.black,
+                // Set the icon color
+                elevation: 2.0,
+                // Set the elevation
+                highlightElevation: 4.0,
+              ),
+              Expanded(child: Container()),
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/calandar');
+                },
+                child: Icon(
+                  Icons.calendar_month_outlined,
+                  size: 50,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                backgroundColor: Colors.blue,
+                // Set the background color
+                foregroundColor: Colors.black,
+                // Set the icon color
+                elevation: 2.0,
+                // Set the elevation
+                highlightElevation: 4.0,
+              ),
+            ],
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          backgroundColor: Colors.blue, // Set the background color
-          foregroundColor: Colors.black, // Set the icon color
-          elevation: 2.0, // Set the elevation
-          highlightElevation: 4.0,
         ),
         body: Stack(children: [
           TabBarView(
             children: [
               Container(
                 child: Column(
-                  children: [SizedBox (height: 3,),
+                  children: [
+                    SizedBox(
+                      height: 3,
+                    ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -471,7 +566,8 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(
                               Icons.add_circle_sharp,
-                              size: 40,color: Colors.yellowAccent,
+                              size: 40,
+                              color: Colors.yellowAccent,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -510,7 +606,8 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(
                               Icons.add_circle_sharp,
-                              size: 40,color: Colors.yellow,
+                              size: 40,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -540,7 +637,10 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 child: Column(
-                  children: [SizedBox(height: 3,),
+                  children: [
+                    SizedBox(
+                      height: 3,
+                    ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -556,7 +656,8 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(
                               Icons.add_circle_sharp,
-                              size: 40,color: Colors.yellow,
+                              size: 40,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -596,7 +697,8 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(
                               Icons.add_circle_sharp,
-                              size: 40,color: Colors.yellow,
+                              size: 40,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -626,7 +728,10 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 child: Column(
-                  children: [SizedBox(height: 3,),
+                  children: [
+                    SizedBox(
+                      height: 3,
+                    ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -642,7 +747,8 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(
                               Icons.add_circle_sharp,
-                              size: 40,color: Colors.yellow,
+                              size: 40,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -682,7 +788,8 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(
                               Icons.add_circle_sharp,
-                              size: 40,color: Colors.yellow,
+                              size: 40,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -712,7 +819,10 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 child: Column(
-                  children: [SizedBox(height: 3,),
+                  children: [
+                    SizedBox(
+                      height: 3,
+                    ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -728,7 +838,8 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(
                               Icons.add_circle_sharp,
-                              size: 40,color: Colors.yellow,
+                              size: 40,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -768,7 +879,8 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(
                               Icons.add_circle_sharp,
-                              size: 40,color: Colors.yellow,
+                              size: 40,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -798,7 +910,10 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 child: Column(
-                  children: [SizedBox(height: 3,),
+                  children: [
+                    SizedBox(
+                      height: 3,
+                    ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -812,7 +927,8 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {},
                             icon: Icon(
                               Icons.more_vert,
-                              size: 30,color: Colors.yellow,
+                              size: 30,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
@@ -905,7 +1021,8 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {},
                             icon: Icon(
                               Icons.more_vert,
-                              size: 30,color: Colors.yellow,
+                              size: 30,
+                              color: Colors.yellow,
                             ),
                             padding: EdgeInsets.symmetric(vertical: 0),
                           )
