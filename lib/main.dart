@@ -17,6 +17,8 @@ import 'calendar/screens/sputil.dart' show SpUtils ;
 
 
 void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox<String>('tabNames'); // Open the 'tabNames' box with the correct data type
   WidgetsFlutterBinding.ensureInitialized();
   final prefs=await SharedPreferences.getInstance();
   final showHome=prefs.getBool('showHome')??false;

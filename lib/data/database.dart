@@ -11,7 +11,7 @@ class ToDoDataBase {
     toDoList = [
 
       ["Press + to add a new task", false],
-      ["Swipe left to delete a aask", false],
+      ["Swipe left to delete a task", false],
       ["Tick the box if you had done ", true],
 
     ];

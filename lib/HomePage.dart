@@ -23,6 +23,9 @@ class _HomePageState extends State<HomePage> {
   final _myBox8 = Hive.box('mybox8');
   // final _myBox9 = Hive.box('mybox9');
 
+  final Box<String> tabNamesBox = Hive.box<String>('tabNames'); // Access the Hive box
+  List<String> tabNames = [];
+
 //shopping
 
   ToDoDataBase db = ToDoDataBase();
@@ -39,6 +42,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    ///////////////////////////////////////////////
+    super.initState();
+    String? tabNamesString = tabNamesBox.get('tabs', defaultValue: 'Education,work,Job,GYM,Default');
+    tabNames = (tabNamesString ?? '').split(','); // Split the string back into a list
+
+    ////////////////////////////////////////////////
     // if this is the 1st time ever openin the app, then create default data
     if (_myBox.get("TODOLIST") == null) {
       db.createInitialData();
@@ -85,15 +94,57 @@ class _HomePageState extends State<HomePage> {
       db8.loadData8();
     }
 
-    // if (_myBox9.get("TODOLIST9") == null) {
-    //   db9.createInitialData9();
-    // } else {
-    //   // there already exists data
-    //   db9.loadData9();
-    // }
-    ////////////////////////////////////////////////////////////////////////
     super.initState();
   }
+
+  ////////////////////////////////////////////////
+  // Function to update the tab names
+  void updateTabName(int index, String newName) {
+    setState(() {
+      tabNames[index] = newName;
+      String tabNamesString = tabNames.join(','); // Convert the list to a comma-separated string
+      tabNamesBox.put('tabs', tabNamesString); // Save updated tab names to the Hive box
+    });
+  }
+
+  // Function to show a text field for editing tab name
+  void showTabNameEditor(BuildContext context, int index) {
+    String newName = tabNames[index];
+    TextEditingController textEditingController = TextEditingController(text: newName);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Edit Tab Name'),
+          content: TextFormField(
+            controller: textEditingController,
+            decoration: InputDecoration(
+              labelText: 'New Tab Name',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                updateTabName(index, textEditingController.text);
+                Navigator.pop(context);
+              },
+              child: Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  ////////////////////////////////////////////////
 
   // text controller
   final _controller = TextEditingController();
@@ -354,19 +405,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  //
-  // void createNewTask9() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return DialogBox(
-  //         controller: _controller,
-  //         onSave: saveNewTask9,
-  //         onCancel: () => Navigator.of(context).pop(),
-  //       );
-  //     },
-  //   );
-  // }
 
   // delete task
   void deleteTask(int index) {
@@ -485,7 +523,15 @@ class _HomePageState extends State<HomePage> {
               unselectedLabelColor: Colors.yellowAccent,
               indicatorColor: Colors.black,
               isScrollable: true,
-              tabs: tabs,
+                tabs: [
+                  for (var i = 0; i < tabNames.length; i++)
+                    GestureDetector(
+                      onLongPress: () => showTabNameEditor(context, i),
+                      child: Tab(
+                        child: Text(tabNames[i]),
+                      ),
+                    ),
+                ],
               indicatorPadding: EdgeInsets.all(5),
               indicator: BoxDecoration(
                   border: Border.all(color: Colors.yellow),
@@ -1148,12 +1194,5 @@ List<Tab> tabs = [
       height: 20,
     ),
   ),
-  // Tab(
-  //   child: IconButton(
-  //     onPressed: () {
-  //
-  //     },
-  //     icon: Icon(Icons.more_vert),
-  //   ),
-  // ),
+
 ];
