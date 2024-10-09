@@ -10,7 +10,6 @@ Smart Notifications: Get timely reminders for important tasks and events, so not
 Offline Support: Your tasks are safely stored using Hive storage, ensuring they're accessible anytime, even without internet.
 Built with Flutter to ensure a smooth, fast, and responsive user experience!
 
-Download TaskMate today and take control of your life!
 
 # 
 ![Screenshot_20241009-114618](https://github.com/user-attachments/assets/42f8ee38-c927-4925-8cef-a635f0717f18)
